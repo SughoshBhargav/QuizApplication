@@ -1,0 +1,54 @@
+﻿@model IEnumerable<QuizApplication.Models.QuizQuestions>
+
+@{
+    ViewData["Title"] = "Answers";
+}
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-success bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Correct Answers</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">Question No.</th>
+                    <th class="text-center">Question</th>
+                    <th class="text-center">Correct Answer</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var question in Model.OrderBy(q => q.QuestionID))
+                {
+                    <tr>
+                        <td class="text-center">@question.QuestionID</td>
+                        <td>@question.QuestionText</td>
+                        <td class="text-center">
+                            @if (question.QuizAnswer != null)
+                            {
+                                @if (question.QuizAnswer.Answer)
+                                {
+                                    <span>True</span>
+                                }
+                                else
+                                {
+                                    <span>False</span>
+                                }
+                            }
+                            else
+                            {
+                                <span>No answer available</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary px-4 text-center fw-bold text-dark">BACK</a>
+        </div>
+    </div>
+</div>
