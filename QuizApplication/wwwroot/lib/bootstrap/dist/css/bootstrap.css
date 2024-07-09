@@ -134,6 +134,31 @@
     --bs-form-invalid-border-color: #ff7851;
 }
 
+.mb-100 {
+    margin-bottom : 100px;
+}
+
+.mb-90 {
+    margin-bottom: 90px;
+}
+
+
+.mb-100 {
+    margin-bottom: 80px;
+}
+
+
+.mb-100 {
+    margin-bottom: 70px;
+}
+
+
+.mb-100 {
+    margin-bottom: 60px;
+}
+
+
+
 [data-bs-theme=dark] {
     color-scheme: dark;
     --bs-body-color: #eceeef;

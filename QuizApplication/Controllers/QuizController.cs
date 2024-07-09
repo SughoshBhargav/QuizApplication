@@ -50,7 +50,10 @@ namespace QuizApplication.Controllers
             ViewBag.Score = score;
             return View();
         }
-
+        public IActionResult Create()
+        {
+            return View();
+        }
         public IActionResult Answer()
         {
             var correctAnswers = _context.QuizQuestion
