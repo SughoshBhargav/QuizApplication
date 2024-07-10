@@ -13,7 +13,7 @@
                 : base(options)
             {
             }
-            public DbSet<QuizQuestions> QuizQuestions { get; set; }
+            public DbSet<QuizQuestions> QuizQuestion { get; set; }
             public DbSet<QuizAnswer> QuizAnswer { get; set; }
         }
     }

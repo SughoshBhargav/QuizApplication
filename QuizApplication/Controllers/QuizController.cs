@@ -18,13 +18,13 @@ namespace QuizApplication.Controllers
 
         public IActionResult Index()
         {
-            List<Models.QuizQuestions> questions = _context.QuizQuestions.ToList();
+            List<Models.QuizQuestions> questions = _context.QuizQuestion.ToList();
             return View(questions);
         }
         [HttpPost]
         public IActionResult SubmitAnswers(Dictionary<int, string> answers)
         {
-            var questions = _context.QuizQuestions.ToList();
+            var questions = _context.QuizQuestion.ToList();
             int score = 0;
 
             foreach (var question in questions)
@@ -62,7 +62,7 @@ namespace QuizApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.QuizQuestions.Add(obj);
+                _context.QuizQuestion.Add(obj);
                 
 
                 if (obj.QuizAnswer != null)
@@ -77,7 +77,7 @@ namespace QuizApplication.Controllers
         }
         public IActionResult Answer()
         {
-            var correctAnswers = _context.QuizQuestions
+            var correctAnswers = _context.QuizQuestion
                 .Include(q => q.QuizAnswer)
                 .ToList();
             return View(correctAnswers);
