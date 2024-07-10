@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace QuizApplication.Models
 {
@@ -6,6 +7,7 @@ namespace QuizApplication.Models
     {
         [Key]
         public int QuestionID { get; set; }
+        [DisplayName("Question")]
         public string? QuestionText { get; set; }
         public QuizAnswer? QuizAnswer { get; set; }
     }

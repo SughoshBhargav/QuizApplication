@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuizApplication.Data;
+using QuizApplication.Models;
 
 namespace QuizApplication.Controllers
 {
@@ -17,13 +18,13 @@ namespace QuizApplication.Controllers
 
         public IActionResult Index()
         {
-            List<Models.QuizQuestions> questions = _context.QuizQuestion.ToList();
+            List<Models.QuizQuestions> questions = _context.QuizQuestions.ToList();
             return View(questions);
         }
         [HttpPost]
         public IActionResult SubmitAnswers(Dictionary<int, string> answers)
         {
-            var questions = _context.QuizQuestion.ToList();
+            var questions = _context.QuizQuestions.ToList();
             int score = 0;
 
             foreach (var question in questions)
@@ -40,7 +41,7 @@ namespace QuizApplication.Controllers
                     }
                 }
             }
-
+            TempData["Success"] = "Quiz submitted Successfully";
             return RedirectToAction("Result", new { score });
         }
 
@@ -50,13 +51,33 @@ namespace QuizApplication.Controllers
             ViewBag.Score = score;
             return View();
         }
+
         public IActionResult Create()
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Create(QuizQuestions obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.QuizQuestions.Add(obj);
+                
+
+                if (obj.QuizAnswer != null)
+                {
+                    obj.QuizAnswer.QuestionId = obj.QuestionID;
+                    _context.QuizAnswer.Add(obj.QuizAnswer);
+                }
+                _context.SaveChanges();
+                TempData["Success"] = "Question added Successfully";
+            }
+            return RedirectToAction("Create", "Quiz");
+        }
         public IActionResult Answer()
         {
-            var correctAnswers = _context.QuizQuestion
+            var correctAnswers = _context.QuizQuestions
                 .Include(q => q.QuizAnswer)
                 .ToList();
             return View(correctAnswers);
